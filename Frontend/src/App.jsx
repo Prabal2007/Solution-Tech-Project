@@ -1,27 +1,17 @@
-import { useState } from 'react'
-import hero from './assets/hero.png'
-import Navbar from './components/navbar'
-import Footer from './components/footer'
-import grid from './components/grid'
-import './App.css'
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Grid from "./components/Grid";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
+    <div className="app-root">
       <Navbar />
-      {/* <div className="cards">
-        <Card
-          percent={65}
-          cost={3000}
-          title="Handmade Dhokra Craft Horse Katora"
-          link={hero}
-        />
-      </div> */}
-      <grid/>
+      <main>
+        <Grid />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

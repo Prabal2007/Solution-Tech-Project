@@ -27,6 +27,7 @@
   font-weight: bold;
   font-size: 14px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 }
 
 .card-img {
@@ -34,13 +35,25 @@
   height: 260px;
   object-fit: cover;
   border-radius: 14px;
-  margin-top: 15px;
   display: block;
   transition:
     transform 0.35s ease,
     filter 0.35s ease;
-  overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.card-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  margin-top: 15px;
+}
+
+.card-image-wrapper .box {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
 }
 
 .card-img:hover {

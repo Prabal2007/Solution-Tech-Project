@@ -3,23 +3,25 @@ import cart from "../assets/cart1.png";
 import "./card.css";
 
 const Card = (props) => {
-  const discountedPrice = (props.cost * (100 - props.percent)) / 100;
+  const discountedPrice = (props.price * (100 - props.discount)) / 100;
 
   return (
     <>
       <div className="card">
-        <span className="box">{props.percent}% OFF</span>
-        <img
-          className="card-img"
-          src={props.link}
-          alt={props.title}
-          loading="lazy"
-        />
+        <div className="card-image-wrapper">
+          <img
+            className="card-img"
+            src={props.image}
+            alt={props.title}
+            loading="lazy"
+          />
+          <span className="box">{props.discount}% OFF</span>
+        </div>
         <h3>{props.title}</h3>
         <div className="row flex">
           <div className="price-section">
             <span style={{ textDecoration: "line-through" }}>
-              ₹{props.cost}
+              ₹{props.price}
             </span>
             <span>₹{discountedPrice}</span>
           </div>

@@ -1,33 +1,55 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Card from "./card";
-import './grid.css';
+import Card from "./Card";
+import "./Grid.css";
+import Pagination from "./Pagination";
 
-function grid() {
+function Grid() {
   const [cards, setCards] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(15);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get("")
+      .get(`http://127.0.0.1:5000/products?page=${page}&limit=${limit}`)
       .then((r) => {
-        setCards(r.data);
+        setCards(r.data.products || []);
+        setTotal(r.data.total || 0);
       })
-      .catch((e) => console.log(e));
-  }, []);
+      .catch((e) => console.error("Failed to load products:", e))
+      .finally(() => setLoading(false));
+  }, [page, limit]);
+
+  const totalPages = Math.max(1, Math.ceil(total / limit));
 
   return (
-    <div className="grid">
-      {cards.map((item) => {
-        <Card
-          key={item.id}
-          title={item.title}
-          cost={item.cost}
-          percent={item.percent}
-          link={item.link}
-        />;
-      })}
+    <div className="grid-wrapper">
+      <div className="grid">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          cards.map((item) => (
+            <Card
+              key={item.id}
+              title={item.title}
+              price={item.price}
+              discount={item.discount}
+              image={item.image}
+            />
+          ))
+        )}
+      </div>
+
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={(p) => setPage(p)}
+      />
     </div>
   );
 }
 
-export default grid;
+export default Grid;
