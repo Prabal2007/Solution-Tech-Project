@@ -7,3 +7,30 @@
 main {
   flex: 1;
 }
+
+.page-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 24px 32px;
+}
+
+.sidebar-column {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.content-column {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .page-layout {
+    flex-direction: column;
+  }
+
+  .sidebar-column {
+    width: 100%;
+  }
+}

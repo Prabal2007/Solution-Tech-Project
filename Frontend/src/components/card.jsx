@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import cart from "../assets/cart1.png";
-import "./card.css";
+import "./Card.css";
 
 const Card = (props) => {
   const discountedPrice = (props.price * (100 - props.discount)) / 100;

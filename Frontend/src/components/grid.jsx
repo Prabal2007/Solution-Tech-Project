@@ -4,7 +4,7 @@ import Card from "./Card";
 import "./Grid.css";
 import Pagination from "./Pagination";
 
-function Grid() {
+function Grid({sortBy}) {
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
   const [limit] = useState(15);
@@ -25,13 +25,36 @@ function Grid() {
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
 
+  const sortedCards = [...cards];
+
+  switch (sortBy) {
+    case "low":
+      sortedCards.sort((a, b) => a.price - b.price);
+      break;
+
+    case "high":
+      sortedCards.sort((a, b) => b.price - a.price);
+      break;
+
+    case "discount":
+      sortedCards.sort((a, b) => b.discount - a.discount);
+      break;
+
+    case "name":
+      sortedCards.sort((a,b) => a.title.localCompare(b.title));
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <div className="grid-wrapper">
       <div className="grid">
         {loading ? (
           <div>Loading...</div>
         ) : (
-          cards.map((item) => (
+          sortedCards.map((item) => (
             <Card
               key={item.id}
               title={item.title}
